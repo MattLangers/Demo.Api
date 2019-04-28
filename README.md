@@ -1,4 +1,4 @@
-Simple Authentication Implementation
+# An API with Simple Authentication middleware 
 
 This API is an example of how we can implement a very simple layer of authentication. When a client engages with the api we have some middleware to authenticat the request. Doing this allows us to ensure all requests are conforming to our authentication requirements. This is only an example, and may not be right for a fully functional production product.
 
