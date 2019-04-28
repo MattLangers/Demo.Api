@@ -1,5 +1,8 @@
 ﻿namespace Api
 {
+    using Authentication;
+    using Authentication.Configuration;
+    using Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -19,6 +22,9 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IAuthenticationProvider, AuthenticationProvider>();
+            services.AddSingleton(this.Configuration.GetSection("AuthenticationConfiguration").Get<AuthenticationConfiguration>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,8 +39,8 @@
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseAuthentication();
+            
+            app.UseSimpleAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
